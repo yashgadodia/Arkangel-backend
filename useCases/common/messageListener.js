@@ -7,7 +7,8 @@ const { question: onboardUserPhotoQuestion, handler: onboardPhotoListener } = re
 const { question: onboardContactQuestion, handler: onboardContactListener } = require('../onboardUser/emergencyContactsListener')
 const { handler: onboardPasswordListener } = require('../onboardUser/passwordListener')
 const { question: trackDefaultQuestion } = require('../trackUser')
-const { question: trackUserDestQuestion, handler: trackUserDestHandler } = require('../trackUser/currentLocationListener')
+const { question: trackUserCurrQuestion, handler: trackUserCurrHandler } = require('../trackUser/currentLocationListener')
+const { question: trackUserDestQuestion, handler: trackUserDestHandler} = require('../trackUser/destinationListener')
 
 module.exports = (message) => {
     if (!message.reply_to_message) return
@@ -42,6 +43,10 @@ module.exports = (message) => {
             break
 
         case trackDefaultQuestion:
+            trackUserCurrHandler(message)
+            break
+
+        case trackUserCurrQuestion:
             trackUserDestHandler(message)
             break
     }
