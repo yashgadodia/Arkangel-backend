@@ -19,10 +19,12 @@ module.exports = {
                 inline_keyboard: [
                     [
                         {
-                            text: 'Estimate automatically'
+                            text: 'Estimate automatically',
+                            callback_data: 'auto'
                         },
                         {
-                            text: 'Input manually'
+                            text: 'Input manually',
+                            callback_data: 'manual'
                         }
                     ]
                 ]
