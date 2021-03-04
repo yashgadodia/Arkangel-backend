@@ -70,6 +70,6 @@ createSuperUser(superUsername, superPass)
 // TODO: setup webhooks for Telegram bot
 
 // Telegram bot setup
-bot.onText(/\/start/, require('./useCases/onboardUser'))
+bot.onText(/\/start/, require('./useCases/onboardUser').handler)
 
 // JSON RPC setup

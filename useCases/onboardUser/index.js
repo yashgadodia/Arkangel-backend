@@ -1,9 +1,17 @@
 const bot = require('../../lib/TelegramBot')
+const question = "Enter your name."
 
-module.exports = (msg, _, userData) => {
-    console.log(userData)
+module.exports = {
+    question,
 
-    const chatId = msg.chat.id
-    bot.sendMessage(chatId, 'Hello and welcome to ArkAngel, let\'s get you started by providing your information for us to keep record.')
-    bot.sendMessage(chatId, 'What is your name?')
+    handler: function (message) {
+        const chatId = message.chat.id
+
+        bot.sendMessage(chatId, 'Hello and welcome to ArkAngel, let\'s get you started by providing your information for us to keep record.')
+        bot.sendMessage(chatId, question, {
+            reply_markup: {
+                force_reply: true
+            }
+        })
+    }
 }
