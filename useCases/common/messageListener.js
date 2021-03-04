@@ -6,6 +6,8 @@ const { question: onboardAddressQuestion, handler: onboardAddressListener } = re
 const { question: onboardUserPhotoQuestion, handler: onboardPhotoListener } = require('../onboardUser/photoListener')
 const { question: onboardContactQuestion, handler: onboardContactListener } = require('../onboardUser/emergencyContactsListener')
 const { handler: onboardPasswordListener } = require('../onboardUser/passwordListener')
+const { question: trackDefaultQuestion } = require('../trackUser')
+const { question: trackUserDestQuestion, handler: trackUserDestHandler } = require('../trackUser/currentLocationListener')
 
 module.exports = (message) => {
     if (!message.reply_to_message) return
@@ -37,6 +39,11 @@ module.exports = (message) => {
 
         case onboardContactQuestion:
             onboardPasswordListener(message)
+            break
+
+        case trackDefaultQuestion:
+            trackUserDestHandler(message)
+            break
     }
 }
 
