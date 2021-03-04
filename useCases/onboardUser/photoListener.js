@@ -1,14 +1,14 @@
 const bot = require('../../lib/TelegramBot')
 const localUserContext = require('../../lib/LocalUserContext')
 
-const question = `
-Enter your emergency contacts details so that we can alert them when something happen to you.
-
+const question = "Enter your emergency contacts details so that we can alert them when something happen to you."
+const exampleContactInfo = `
 Please enter the details in the following format:
 person_name,phone_number,relationship
 
 Example:
 Yash,46553152,father
+Nicholas,123123,brother
 `
 
 module.exports = {
@@ -33,5 +33,6 @@ module.exports = {
                 force_reply: true
             }
         })
+        bot.sendMessage(chatId, exampleContactInfo)
     }
 }
