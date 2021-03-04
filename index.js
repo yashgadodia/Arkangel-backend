@@ -1,9 +1,4 @@
 require('dotenv').config()
-const TelegramBot = require('node-telegram-bot-api')
-const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, { polling: true })
+const bot = require('./lib/TelegramBot')
 
-bot.onText(/\/echo (.+)/, (msg, match) => {
-    const chatId = msg.chat.id
-    const resp = match[1]
-    bot.sendMessage(chatId, resp)
-})
+bot.onText(/\/echo (.+)/, require('./useCases/echoMessage'))
