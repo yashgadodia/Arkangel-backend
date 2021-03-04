@@ -20,7 +20,5 @@ module.exports = {
                 force_reply: true
             }
         })
-
-        console.log(localUserContext.getUser(userId))
     }
 }
