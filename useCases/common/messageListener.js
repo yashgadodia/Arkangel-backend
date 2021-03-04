@@ -1,26 +1,26 @@
-const { question: onboardUserDefaultQuestion } = require('../onboardUser')
-const { question: onboardUserNameQuestion, handler: onboardNameListener } = require('../onboardUser/nameListener')
-const { question: onboardUserCitizenNumberQuestion, handler: onboardCitizenNumberListener } = require('../onboardUser/citizenNumberListener')
-const { question: onboardUserPhoneQuestion, handler: onboardPhoneListener } = require('../onboardUser/phoneNumberListener')
-const { question: onboardUserAddressQuestion, handler: onboardAddressListener } = require('../onboardUser/addressListener')
+const { question: onboardDefaultQuestion } = require('../onboardUser')
+const { question: onboardNameQuestion, handler: onboardNameListener } = require('../onboardUser/nameListener')
+const { question: onboardCitizenNumberQuestion, handler: onboardCitizenNumberListener } = require('../onboardUser/citizenNumberListener')
+const { question: onboardPHoneQuestion, handler: onboardPhoneListener } = require('../onboardUser/phoneNumberListener')
+const { question: onboardAddressQuestion, handler: onboardAddressListener } = require('../onboardUser/addressListener')
 
 module.exports = (message) => {
     if (!message.reply_to_message) return
 
     switch (message.reply_to_message.text) {
-        case onboardUserDefaultQuestion:
+        case onboardDefaultQuestion:
             onboardNameListener(message)
             break
 
-        case onboardUserNameQuestion:
+        case onboardNameQuestion:
             onboardCitizenNumberListener(message)
             break
 
-        case onboardUserCitizenNumberQuestion:
+        case onboardCitizenNumberQuestion:
             onboardPhoneListener(message)
             break
 
-        case onboardUserPhoneQuestion:
+        case onboardPHoneQuestion:
             onboardAddressListener(message)
             break
     }
