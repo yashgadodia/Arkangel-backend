@@ -13,6 +13,7 @@ module.exports = {
 
         const userModel = createUserModel()
         userModel.name = message.text
+        userModel.teleHandle = message.from.username
             
         localUserContext.addUser(userId, userModel)
         bot.sendMessage(chatId, question, {
