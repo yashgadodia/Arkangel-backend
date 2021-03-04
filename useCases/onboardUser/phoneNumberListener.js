@@ -1,7 +1,7 @@
 const bot = require('../../lib/TelegramBot')
 const localUserContext = require('../../lib/LocalUserContext')
 
-const question = "Enter your phone number."
+const question = "Enter your address."
 
 module.exports = {
     question,
