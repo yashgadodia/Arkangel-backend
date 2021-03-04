@@ -12,20 +12,5 @@ module.exports = {
                 force_reply: true
             }
         })
-
-        // bot.sendMessage(chatId, question, {
-        //     reply_markup: {
-        //         inline_keyboard: [
-        //             [
-        //                 {
-        //                     text: ''
-        //                 },
-        //                 {
-        //                     text: ''
-        //                 }
-        //             ]
-        //         ]
-        //     }
-        // })
     }
 }
