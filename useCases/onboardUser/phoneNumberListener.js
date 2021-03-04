@@ -11,7 +11,7 @@ module.exports = {
         const userId = message.from.id
 
         localUserContext.updateUser(userId, {
-            type: 'phone',
+            type: 'phoneNo',
             payload: message.text
         })
 

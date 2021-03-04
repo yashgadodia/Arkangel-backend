@@ -11,7 +11,7 @@ module.exports = {
         const userId = message.from.id
 
         localUserContext.updateUser(userId, {
-            type: 'ic',
+            type: 'identityNumber',
             payload: message.text
         })
 

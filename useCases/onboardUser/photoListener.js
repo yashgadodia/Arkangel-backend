@@ -24,7 +24,7 @@ module.exports = {
         const photoLink = await bot.getFileLink(fileId)
 
         localUserContext.updateUser(userId, {
-            type: 'photo_link',
+            type: 'photo',
             payload: photoLink
         })
 
