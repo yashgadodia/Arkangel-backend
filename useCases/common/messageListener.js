@@ -1,5 +1,7 @@
 const { question: onboardUserDefaultQuestion } = require('../onboardUser')
-const { handler: onboardNameListener } = require('../onboardUser/nameListener')
+const { question: onboardUserNameQuestion, handler: onboardNameListener } = require('../onboardUser/nameListener')
+const { question: onboardUserCitizenNumberQuestion, handler: onboardCitizenNumberListener } = require('../onboardUser/citizenNumberListener')
+const { question: onboardUserPhoneQuestion, handler: onboardPhoneListener } = require('../onboardUser/phoneNumberListener')
 
 module.exports = (message) => {
     if (!message.reply_to_message) return
@@ -7,6 +9,14 @@ module.exports = (message) => {
     switch (message.reply_to_message.text) {
         case onboardUserDefaultQuestion:
             onboardNameListener(message)
+            break
+
+        case onboardUserNameQuestion:
+            onboardCitizenNumberListener(message)
+            break
+
+        case onboardUserCitizenNumberQuestion:
+            onboardPhoneListener(message)
             break
     }
 }

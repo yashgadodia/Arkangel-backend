@@ -1,8 +1,6 @@
 require('dotenv').config()
 const bot = require('./lib/TelegramBot')
 
-bot.onText(/\/echo (.+)/, require('./useCases/echoMessage'))
-
 // setup firebase 
 var admin = require("firebase-admin");
 

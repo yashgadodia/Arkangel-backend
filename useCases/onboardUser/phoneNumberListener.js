@@ -1,8 +1,7 @@
 const bot = require('../../lib/TelegramBot')
 const localUserContext = require('../../lib/LocalUserContext')
-const createUserModel = require('../../model/UserModel')
 
-const question = "Enter your citizenship number."
+const question = "Enter your phone number."
 
 module.exports = {
     question,
@@ -11,14 +10,17 @@ module.exports = {
         const chatId = message.chat.id
         const userId = message.from.id
 
-        const userModel = createUserModel()
-        userModel.name = message.text
-            
-        localUserContext.addUser(userId, userModel)
+        localUserContext.updateUser(userId, {
+            type: 'phone',
+            payload: message.text
+        })
+
         bot.sendMessage(chatId, question, {
             reply_markup: {
                 force_reply: true
             }
         })
+
+        console.log(localUserContext.getUser(userId))
     }
 }
