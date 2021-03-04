@@ -1,53 +1,42 @@
 require('dotenv').config()
 const bot = require('./lib/TelegramBot')
 
-// setup firebase 
-var admin = require("firebase-admin");
 
-var serviceAccount = require("./arkangel-firebase-firebase-adminsdk-2r4vg-e5cf136274.json");
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://arkangel-firebase-default-rtdb.firebaseio.com"
-});
+// var userId = '123';
+// var ic = 's99'
+// var telenum = '999';
+// var pass = '123';
+// var name = 'halimah yacob';
+// var add = '420 oxley';
+// var photoLink = 'http:...';
+// var location = '69 oxley road';
+// var safe = false ;
 
-let database = admin.database();
-console.log(database)
+// function writeUserData(userId,ic, telenum, pass, name, add, photoLink, location,safe ) {
+//     admin.database().ref('users/' + userId).set({
+//         ICNumber: ic,
+//         TeleHandle: telenum,
+//         Password: pass,
+//         Name: name,
+//         Address: add,
+//         PhotoLink: photoLink,
+//         Location: location,
+//         Safe: safe
+//     });
+// }
+// writeUserData(userId,ic,telenum, pass, name,add,photoLink,location, safe)
 
-var userId = '123';
-var ic = 's99'
-var telenum = '999';
-var pass = '123';
-var name = 'halimah yacob';
-var add = '420 oxley';
-var photoLink = 'http:...';
-var location = '69 oxley road';
-var safe = false ;
+// var superUsername = 'superuser'
+// var superPass = 'password'
+// function createSuperUser(superUsername,superPass) {
+//     admin.database().ref('superuser/' + superUsername).set({
+//         pass: superPass
+//     })
+// }
+// createSuperUser(superUsername, superPass)
 
-function writeUserData(userId,ic, telenum, pass, name, add, photoLink, location,safe ) {
-    admin.database().ref('users/' + userId).set({
-        ICNumber: ic,
-        TeleHandle: telenum,
-        Password: pass,
-        Name: name,
-        Address: add,
-        PhotoLink: photoLink,
-        Location: location,
-        Safe: safe
-    });
-}
-writeUserData(userId,ic,telenum, pass, name,add,photoLink,location, safe)
-
-var superUsername = 'superuser'
-var superPass = 'password'
-function createSuperUser(superUsername,superPass) {
-    admin.database().ref('superuser/' + superUsername).set({
-        pass: superPass
-    })
-}
-createSuperUser(superUsername, superPass)
-
-// var userId = 'id2' // get from tele
+// // var userId = 'id2' // get from tele
 // admin.database().ref('users/' + userId).set({
 //     ic: 's97...',
 //     telehandle: '@yashgadodia',
