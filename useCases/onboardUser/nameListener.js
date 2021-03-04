@@ -1,6 +1,6 @@
 const bot = require('../../lib/TelegramBot')
 const localUserContext = require('../../lib/LocalUserContext')
-const createUserModel = require('../../model/UserModel')
+const createUserModel = require('../../model/UserInputModel')
 
 const question = "Enter your citizenship number."
 
