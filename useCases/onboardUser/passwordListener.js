@@ -22,7 +22,7 @@ module.exports = {
         try {
             db.writeUser(userObject)
         } catch (e) {
-            console.log(e)
+            console.error(e)
         }
 
         localUserContext.removeUser(userId)
