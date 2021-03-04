@@ -14,10 +14,6 @@ module.exports = {
         const chatId = message.chat.id
         const userId = message.from.id
 
-        // localUserContext.updateUser(userId, {
-        //     type: 'ic',
-        //     payload: message.text
-        // })
         bot.sendMessage(chatId, question, {
             reply_markup: {
                 force_reply: true
