@@ -19,5 +19,8 @@ module.exports = {
 
         const userObject = localUserContext.getUser(userId)
         // TODO: Yash, upload to firebase store
+
+
+        localUserContext.removeUser(userId)
     }
 }
