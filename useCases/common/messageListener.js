@@ -5,6 +5,7 @@ const { question: onboardPHoneQuestion, handler: onboardPhoneListener } = requir
 const { question: onboardAddressQuestion, handler: onboardAddressListener } = require('../onboardUser/addressListener')
 const { question: onboardUserPhotoQuestion, handler: onboardPhotoListener } = require('../onboardUser/photoListener')
 const { question: onboardContactQuestion, handler: onboardContactListener } = require('../onboardUser/emergencyContactsListener')
+const { handler: onboardPasswordListener } = require('../onboardUser/passwordListener')
 
 module.exports = (message) => {
     if (!message.reply_to_message) return
@@ -33,6 +34,9 @@ module.exports = (message) => {
         case onboardUserPhotoQuestion:
             onboardContactListener(message)
             break
+
+        case onboardContactQuestion:
+            onboardPasswordListener(message)
     }
 }
 
