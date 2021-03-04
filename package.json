@@ -19,6 +19,7 @@
   "homepage": "https://github.com/yashgadodia/Arkangel-backend#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "firebase-admin": "^9.5.0",
     "node-telegram-bot-api": "^0.51.0"
   },
   "devDependencies": {
