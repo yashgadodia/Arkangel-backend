@@ -9,6 +9,10 @@ module.exports = {
         const chatId = message.chat.id
         const userId = message.from.id
 
+        // TODO: Retrieve geolocation by using destination name
+
+        // TODO: Update localTrackingContext
+
         localTrackingContext.updateTracker(userId, {
             type: 'destinationName',
             payload: message.text
