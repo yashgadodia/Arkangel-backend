@@ -4,6 +4,7 @@ const { question: onboardCitizenNumberQuestion, handler: onboardCitizenNumberLis
 const { question: onboardPHoneQuestion, handler: onboardPhoneListener } = require('../onboardUser/phoneNumberListener')
 const { question: onboardAddressQuestion, handler: onboardAddressListener } = require('../onboardUser/addressListener')
 const { question: onboardUserPhotoQuestion, handler: onboardPhotoListener } = require('../onboardUser/photoListener')
+const { question: onboardContactQuestion, handler: onboardContactListener } = require('../onboardUser/emergencyContactsListener')
 
 module.exports = (message) => {
     if (!message.reply_to_message) return
@@ -28,6 +29,10 @@ module.exports = (message) => {
         case onboardAddressQuestion:
             onboardPhotoListener(message)
             break
+
+        case onboardUserPhotoQuestion:
+            onboardContactListener(message)
+            break
     }
 }
 
@@ -39,4 +44,5 @@ module.exports = (message) => {
  * 4. Address
  * 5. Photo
  * 6. Emergency contacts
+ * 7. Password
  */
