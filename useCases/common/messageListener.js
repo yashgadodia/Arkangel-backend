@@ -20,3 +20,12 @@ module.exports = (message) => {
             break
     }
 }
+
+/**
+ * Sequence flow of onboarding messages:
+ * 1. Name
+ * 2. Citizen number
+ * 3. Phone number
+ * 4. Address
+ * 
+ */
