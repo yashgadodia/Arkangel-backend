@@ -1,5 +1,6 @@
 const bot = require('../../lib/TelegramBot')
 const localUserContext = require('../../lib/LocalUserContext')
+const db = require('../../lib/FireBaseDB')
 
 module.exports = {
     handler: function (message) {
@@ -18,8 +19,11 @@ module.exports = {
         )
 
         const userObject = localUserContext.getUser(userId)
-        // TODO: Yash, upload to firebase store
-
+        try {
+            db.writeUser(userObject)
+        } catch (e) {
+            console.log(e)
+        }
 
         localUserContext.removeUser(userId)
     }
