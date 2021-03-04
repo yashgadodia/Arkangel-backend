@@ -69,6 +69,7 @@ createSuperUser(superUsername, superPass)
 
 // Telegram bot setup
 bot.onText(/\/start/, require('./useCases/onboardUser').handler)
+bot.onText(/\/sendhelp/, require('./useCases/sendHelp'))
 bot.on('message', require('./useCases/common/messageListener'))
 
 // JSON RPC setup
