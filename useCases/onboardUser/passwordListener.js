@@ -16,5 +16,8 @@ module.exports = {
             chatId,
             "Thank you for registering with ArkAngel, we will notify you when you are verified."
         )
+
+        const userObject = localUserContext.getUser(userId)
+        // TODO: Yash, upload to firebase store
     }
 }
