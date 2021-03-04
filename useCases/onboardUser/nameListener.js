@@ -14,7 +14,8 @@ module.exports = {
         const userModel = createUserModel()
         userModel.name = message.text
         userModel.teleHandle = message.from.username
-            
+        userModel.teleChatId = chatId
+
         localUserContext.addUser(userId, userModel)
         bot.sendMessage(chatId, question, {
             reply_markup: {

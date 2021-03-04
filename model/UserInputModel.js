@@ -6,6 +6,7 @@ module.exports = () => {
         address: null,
         phoneNo: null,
         teleHandle: null,
+        teleChatId: null,
         emergencyContacts: [],
         validationStatus: 0,
         reason: null,
