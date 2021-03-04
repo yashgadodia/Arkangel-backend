@@ -10,12 +10,17 @@ module.exports = {
         const chatId = message.chat.id
         const userId = message.from.id
 
-        // TODO: split the string and add into objects data
-        // person_name,phone_number,relationship
-        console.log(message.text.split('\n'))
+        const contacts = message.text.split('\n')
+        const contactsArr = []
+
+        for (const contact of contacts) {
+            const [name, phoneNo, relationship] = contact.split(',')
+            contactsArr.push({ name, phoneNo, relationship })
+        }
 
         localUserContext.updateUser(userId, {
-            type: 'emergencyContacts'
+            type: 'emergencyContacts',
+            payload: contactsArr
         })
 
         bot.sendMessage(chatId, question, {
