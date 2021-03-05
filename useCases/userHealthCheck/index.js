@@ -38,7 +38,7 @@ function performHealthCheck(userId) {
 }
 
 function setHealthCheckResponseDeadline(userId) {
-    setTimeout(function () {
+    setTimeout(async function () {
         const tracker = localTrackingContext.getTracker(userId)
         if (!tracker || !tracker.shouldPerformHealthCheck) return
 
@@ -46,9 +46,11 @@ function setHealthCheckResponseDeadline(userId) {
         if (!respondedToHealthCheck) {
             alertPolice(userId)
         }
+
+        await firebaseDb.addHistoryAlerts(userId, tracker.currentLocation, "Did not response to ArkAngel's message in time.")
     }, HEALTH_CHECK_DEADLINE)
 }
 
 function alertPolice(userId) {
-    console.log(`${userId} will be reported to the police`)
+    // TODO: Alert the police
 }
