@@ -3,6 +3,8 @@ const localTrackingContext = require('../../localContext/LocalTrackingContext')
 
 const question = "Enter your password to identify your identity."
 
+const passwordAttempts = {}
+
 module.exports = {
     question,
 
@@ -14,25 +16,25 @@ module.exports = {
         })
     },
 
-    handler: function (message) {
+    handler: async function (message) {
         const chatId = message.chat.id
         const userId = message.from.id
+        
+        bot.deleteMessage(chatId, message.message_id)
 
-        let isPasswordCorrect = false
-        let incorrectAttempts = 0
+        // TODO: Verify the password
 
-        do {
-            // TODO: Verify the password
+        if (passwordAttempts[userId]) {
+            passwordAttempts[userId]++
+        } else {
+            passwordAttempts[userId] = 1
+        }
 
-            incorrectAttempts++
-            if (incorrectAttempts === 3) {
-                // TODO: Add historical alerts
-            }
-
-            bot.deleteMessage(chatId, message.message_id)
-        } while (!isPasswordCorrect && incorrectAttempts < 3)
-
-        if (!isPasswordCorrect) return
+        if (passwordAttempts[userId] === 3) {
+            // TODO: Add firebase historical alert
+            delete passwordAttempts[userId]
+            return
+        }
 
         bot.sendMessage(chatId, "We have stopped our tracking activity, please continue to stay safe by using ArkAngel!")
     }
