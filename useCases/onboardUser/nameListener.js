@@ -1,11 +1,20 @@
 const bot = require('../../lib/TelegramBot')
 const localUserContext = require('../../lib/LocalUserContext')
 const createUserModel = require('../../model/UserInputModel')
+const citizenNumberListener = require('./citizenNumberListener')
 
-const question = "Enter your citizenship number."
+const question = "Enter your name."
 
 module.exports = {
     question,
+
+    prompt: function (chatId) {
+        bot.sendMessage(chatId, question, {
+            reply_markup: {
+                force_reply: true
+            }
+        }) 
+    },
 
     handler: function (message) {
         const chatId = message.chat.id
@@ -17,10 +26,6 @@ module.exports = {
         userModel.teleChatId = chatId
 
         localUserContext.addUser(userId, userModel)
-        bot.sendMessage(chatId, question, {
-            reply_markup: {
-                force_reply: true
-            }
-        })
+        citizenNumberListener.prompt(chatId)
     }
 }

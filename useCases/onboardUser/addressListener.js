@@ -1,10 +1,19 @@
 const bot = require('../../lib/TelegramBot')
 const localUserContext = require('../../lib/LocalUserContext')
+const photoListener = require('./photoListener')
 
-const question = "Upload your identification card for verification."
+const question = "Enter your address."
 
 module.exports = {
     question,
+
+    prompt: function (chatId) {
+        bot.sendMessage(chatId, question, {
+            reply_markup: {
+                force_reply: true
+            }
+        })
+    },
 
     handler: function (message) {
         const chatId = message.chat.id
@@ -14,11 +23,6 @@ module.exports = {
             type: 'address',
             payload: message.text
         })
-
-        bot.sendMessage(chatId, question, {
-            reply_markup: {
-                force_reply: true
-            }
-        })
+        photoListener.prompt(chatId)
     }
 }
