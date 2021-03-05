@@ -10,7 +10,10 @@ module.exports = () => {
         emergencyContacts: [],
         validationStatus: 0,
         reason: null,
-        lastKnownLocation: '',
+        lastKnownLocation: {
+            lat: null,
+            lng: null
+        },
         password: '',
         safeZone: [],
         historicalAlerts: [],
