@@ -1,5 +1,5 @@
 const bot = require('../../lib/TelegramBot')
-const localTrackingContext = require('../../localContext/LocalUserContext')
+const localTrackingContext = require('../../localContext/LocalTrackingContext')
 
 const etaListener = require('../trackUser/etaListener')
 
