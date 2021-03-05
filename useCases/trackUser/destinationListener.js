@@ -1,9 +1,19 @@
 const bot = require('../../lib/TelegramBot')
 const localTrackingContext = require('../../lib/LocalTrackingContext')
-const question = "How should we process your estimated time to reach your destination time?"
+const etaListener = require('./etaListener')
+
+const question = "Please enter your destination location name."
 
 module.exports = {
     question,
+
+    prompt: function (chatId) {
+        bot.sendMessage(chatId, question, {
+            reply_markup: {
+                force_reply: true
+            }
+        })
+    },
 
     handler: function (message) {
         const chatId = message.chat.id
@@ -17,22 +27,6 @@ module.exports = {
             type: 'destinationName',
             payload: message.text
         })
-
-        bot.sendMessage(chatId, question, {
-            reply_markup: {
-                inline_keyboard: [
-                    [
-                        {
-                            text: 'Estimate automatically',
-                            callback_data: 'auto'
-                        },
-                        {
-                            text: 'Input manually',
-                            callback_data: 'manual'
-                        }
-                    ]
-                ]
-            }
-        })
+        etaListener.prompt(chatId)
     }
 }

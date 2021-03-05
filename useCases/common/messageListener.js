@@ -6,6 +6,10 @@ const { question: onboardPhotoQuestion, handler: onboardPhotoHandler } = require
 const { question: onboardContactsQuestion, handler: onboardContactsHandler } = require('../onboardUser/emergencyContactsListener')
 const { question: onboardPasswordQuestion, handler: onboardPasswordHandler } = require('../onboardUser/passwordListener')
 
+const { question: trackCurrentLocationQuestion, handler: trackCurrentLocationHandler } = require('../trackUser/currentLocationListener')
+const { question: trackDestinationLocationQuestion, handler: trackDestinationLocationHandler } = require('../trackUser/destinationListener')
+const { question: trackEtaQuestion, handler: trackEtaHandler } = require('../trackUser/etaListener')
+
 module.exports = (message) => {
     if (!message.reply_to_message) return
 
@@ -36,6 +40,18 @@ module.exports = (message) => {
 
         case onboardPasswordQuestion:
             onboardPasswordHandler(message)
+            break
+
+        case trackCurrentLocationQuestion:
+            trackCurrentLocationHandler(message)
+            break
+
+        case trackDestinationLocationQuestion:
+            trackDestinationLocationHandler(message)
+            break
+
+        case trackEtaQuestion:
+            trackEtaHandler(message)
             break
     }
 }

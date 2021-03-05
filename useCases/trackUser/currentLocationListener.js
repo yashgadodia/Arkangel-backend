@@ -1,11 +1,21 @@
 const bot = require('../../lib/TelegramBot')
 const createTrackingModel = require('../../model/TrackUserInputModel')
 const localTrackingContext = require('../../lib/LocalTrackingContext')
-const question = "Please enter your destination name."
+const destinationLocationListener = require('./destinationListener')
+
+const question = "Please share your live location with us to estimate your ETA to your destination."
 
 module.exports = {
     question,
-    
+
+    prompt: function (chatId) {
+        bot.sendMessage(chatId, question, {
+            reply_markup: {
+                force_reply: true
+            }
+        })
+    },
+
     handler: function (message) {
         if (!message.location) return
 
@@ -20,11 +30,6 @@ module.exports = {
         }
 
         localTrackingContext.addTracker(userId, trackingModel)
-
-        bot.sendMessage(chatId, question, {
-            reply_markup: {
-                force_reply: true
-            }
-        })
+        destinationLocationListener.prompt(chatId)
     }
 }
