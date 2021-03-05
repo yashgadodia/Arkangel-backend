@@ -9,5 +9,6 @@ module.exports = () => ({
         lat: null,
         lng: null
     },
-    etaToDestination: null
+    etaToDestination: null,
+    shouldPerformHealthCheck: false
 })
