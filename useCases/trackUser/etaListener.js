@@ -49,8 +49,7 @@ module.exports = {
             payload: estimatedDuration
         })
 
-
-        startHealthCheck(message.chat.id, userId)
+        startHealthCheck(message.message.chat.id, userId)
     },
 
     manualHandler: function (message) {
