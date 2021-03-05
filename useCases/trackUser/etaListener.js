@@ -3,6 +3,8 @@ const localTrackingContext = require('../../lib/LocalTrackingContext')
 
 const question = "How should we process your estimated time to reach your destination time?"
 
+const manualEtaQuestion = "What is your estimated time to reach your destination?"
+
 module.exports = {
     question,
 
@@ -13,11 +15,11 @@ module.exports = {
                     [
                         {
                             text: 'Estimate automatically',
-                            callback_data: 'auto'
+                            callback_data: 'etaListener_auto'
                         },
                         {
                             text: 'Input manually',
-                            callback_data: 'manual'
+                            callback_data: 'etaListener_manual'
                         }
                     ]
                 ]
@@ -25,7 +27,15 @@ module.exports = {
         })
     },
 
-    handler: function (message) {
+    promptManualEta: function (chatId) {
+        bot.sendMessage(chatId, manualEtaQuestion, {
+            reply_markup: {
+                force_reply: true
+            }
+        })
+    },
+
+    autoHandler: function (message) {
         const chatId = message.chat.id
         const userId = message.from.id
 
@@ -37,5 +47,9 @@ module.exports = {
             type: 'etaToDestination',
             payload: message.text
         })
+    },
+
+    manualHandler: function (nessage) {
+
     }
 }
