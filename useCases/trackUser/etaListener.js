@@ -1,10 +1,11 @@
 const bot = require('../../lib/TelegramBot')
 const localTrackingContext = require('../../localContext/LocalTrackingContext')
 const gmaps = require('../../lib/GMaps')
+const healthCheck = require('../userHealthCheck')
 
 const question = "How should we process your estimated time to reach your destination time? (e.g. 15 mins)"
-
 const manualEtaQuestion = "What is your estimated time to reach your destination?"
+const healthCheckText = "We will be checking in on your every five minutes for your safety, please respond timely."
 
 module.exports = {
     question: manualEtaQuestion,
@@ -48,7 +49,8 @@ module.exports = {
             payload: estimatedDuration
         })
 
-        // TODO: Launch health check on user
+
+        startHealthCheck(message.chat.id, userId)
     },
 
     manualHandler: function (message) {
@@ -59,6 +61,16 @@ module.exports = {
             payload: message.text
         })
 
-        // TODO: Launch health check on user
+        startHealthCheck(message.chat.id, userId)
     }
+}
+
+function startHealthCheck(chatId, userId) {
+    bot.sendMessage(chatId, healthCheckText)
+    localTrackingContext.updateTracker(userId, {
+        type: 'shouldPerformHealthCheck',
+        payload: true
+    })
+
+    healthCheck(userId)
 }
