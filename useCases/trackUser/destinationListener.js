@@ -1,5 +1,6 @@
 const bot = require('../../lib/TelegramBot')
 const localTrackingContext = require('../../localContext/LocalTrackingContext')
+const gmaps = require('../../lib/GMaps')
 const etaListener = require('./etaListener')
 
 const question = "Please enter your destination location name."
@@ -15,13 +16,15 @@ module.exports = {
         })
     },
 
-    handler: function (message) {
+    handler: async function (message) {
         const chatId = message.chat.id
         const userId = message.from.id
 
-        // TODO: Retrieve geolocation by using destination name
-
-        // TODO: Update localTrackingContext
+        const { lat, lng } = await gmaps.getGeolocationByName(message.text)
+        localTrackingContext.updateTracker(userId, {
+            type: 'destinationLocation',
+            payload: { lat, lng }
+        })
 
         localTrackingContext.updateTracker(userId, {
             type: 'destinationName',
