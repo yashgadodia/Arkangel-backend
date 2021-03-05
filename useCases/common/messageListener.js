@@ -1,53 +1,41 @@
-const { question: onboardDefaultQuestion } = require('../onboardUser')
-const { question: onboardNameQuestion, handler: onboardNameListener } = require('../onboardUser/nameListener')
-const { question: onboardCitizenNumberQuestion, handler: onboardCitizenNumberListener } = require('../onboardUser/citizenNumberListener')
-const { question: onboardPHoneQuestion, handler: onboardPhoneListener } = require('../onboardUser/phoneNumberListener')
-const { question: onboardAddressQuestion, handler: onboardAddressListener } = require('../onboardUser/addressListener')
-const { question: onboardUserPhotoQuestion, handler: onboardPhotoListener } = require('../onboardUser/photoListener')
-const { question: onboardContactQuestion, handler: onboardContactListener } = require('../onboardUser/emergencyContactsListener')
-const { handler: onboardPasswordListener } = require('../onboardUser/passwordListener')
-const { question: trackDefaultQuestion } = require('../trackUser')
-const { question: trackUserCurrQuestion, handler: trackUserCurrHandler } = require('../trackUser/currentLocationListener')
-const { question: trackUserDestQuestion, handler: trackUserDestHandler} = require('../trackUser/destinationListener')
+const { question: onboardNameQuestion, handler: onboardNameHandler } = require('../onboardUser/nameListener')
+const { question: onboardCitizenNumberQuestion, handler: onboardCitizenNumberHandler } = require('../onboardUser/citizenNumberListener')
+const { question: onboardPhoneQuestion, handler: onboardPhoneHandler } = require('../onboardUser/phoneNumberListener')
+const { question: onboardAddressQuestion, handler: onboardAddressHandler } = require('../onboardUser/addressListener')
+const { question: onboardPhotoQuestion, handler: onboardPhotoHandler } = require('../onboardUser/photoListener')
+const { question: onboardContactsQuestion, handler: onboardContactsHandler } = require('../onboardUser/emergencyContactsListener')
+const { question: onboardPasswordQuestion, handler: onboardPasswordHandler } = require('../onboardUser/passwordListener')
 
 module.exports = (message) => {
     if (!message.reply_to_message) return
 
     switch (message.reply_to_message.text) {
-        case onboardDefaultQuestion:
-            onboardNameListener(message)
-            break
-
         case onboardNameQuestion:
-            onboardCitizenNumberListener(message)
+            onboardNameHandler(message)
             break
 
         case onboardCitizenNumberQuestion:
-            onboardPhoneListener(message)
+            onboardCitizenNumberHandler(message)
             break
 
-        case onboardPHoneQuestion:
-            onboardAddressListener(message)
+        case onboardPhoneQuestion:
+            onboardPhoneHandler(message)
             break
 
         case onboardAddressQuestion:
-            onboardPhotoListener(message)
+            onboardAddressHandler(message)
             break
 
-        case onboardUserPhotoQuestion:
-            onboardContactListener(message)
+        case onboardPhotoQuestion:
+            onboardPhotoHandler(message)
             break
 
-        case onboardContactQuestion:
-            onboardPasswordListener(message)
+        case onboardContactsQuestion:
+            onboardContactsHandler(message)
             break
 
-        case trackDefaultQuestion:
-            trackUserCurrHandler(message)
-            break
-
-        case trackUserCurrQuestion:
-            trackUserDestHandler(message)
+        case onboardPasswordQuestion:
+            onboardPasswordHandler(message)
             break
     }
 }
@@ -61,4 +49,11 @@ module.exports = (message) => {
  * 5. Photo
  * 6. Emergency contacts
  * 7. Password
+ */
+
+/**
+ * Sequence flow of tracking messages:
+ * 1. Current location
+ * 2. Destination location
+ * 3. Eta duration
  */

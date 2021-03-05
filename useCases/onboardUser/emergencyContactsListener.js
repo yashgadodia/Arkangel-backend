@@ -1,10 +1,29 @@
 const bot = require('../../lib/TelegramBot')
 const localUserContext = require('../../lib/LocalUserContext')
+const passwordListener = require('./passwordListener')
 
-const question = "Enter a password to verify you have reached your destination in the future."
+const question = "Enter your emergency contacts details so that we can alert them when something happen to you."
+const exampleContactInfo = `
+Please enter the details in the following format:
+person_name,phone_number,relationship
+
+Example:
+Yash,46553152,father
+Nicholas,123123,brother
+`
 
 module.exports = {
     question,
+
+    prompt: function (chatId) {
+        bot.sendMessage(chatId, question, {
+            reply_markup: {
+                force_reply: true
+            }
+        })
+
+        bot.sendMessage(chatId, exampleContactInfo)
+    },
 
     handler: function (message) {
         const chatId = message.chat.id
@@ -22,11 +41,6 @@ module.exports = {
             type: 'emergencyContacts',
             payload: contactsArr
         })
-
-        bot.sendMessage(chatId, question, {
-            reply_markup: {
-                force_reply: true
-            }
-        })
+        passwordListener.prompt(chatId)
     }
 }
