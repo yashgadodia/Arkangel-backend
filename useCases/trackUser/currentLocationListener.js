@@ -1,3 +1,4 @@
+const firebaseDb = require('../../lib/FireBaseDB')
 const bot = require('../../lib/TelegramBot')
 const createTrackingModel = require('../../model/TrackUserInputModel')
 const localTrackingContext = require('../../localContext/LocalTrackingContext')
@@ -28,6 +29,8 @@ module.exports = {
             lat: message.location.latitude,
             lng: message.location.longitude
         }
+
+        firebaseDb.updateUserLastKnownLocation(message.from.username, trackingModel.currentLocation)
 
         localTrackingContext.addTracker(userId, trackingModel)
         destinationLocationListener.prompt(chatId)
