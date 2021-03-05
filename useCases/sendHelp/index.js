@@ -1,5 +1,4 @@
 const bot = require('../../lib/TelegramBot')
-const localUserContext = require('../../lib/LocalUserContext')
 const messageListener = require('../common/messageListener')
 
 

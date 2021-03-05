@@ -1,5 +1,5 @@
 const bot = require('../../lib/TelegramBot')
-const localUserContext = require('../../lib/LocalUserContext')
+const localUserContext = require('../../localContext/LocalUserContext')
 const createUserModel = require('../../model/UserInputModel')
 const citizenNumberListener = require('./citizenNumberListener')
 

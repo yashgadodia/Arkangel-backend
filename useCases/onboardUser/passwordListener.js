@@ -1,5 +1,5 @@
 const bot = require('../../lib/TelegramBot')
-const localUserContext = require('../../lib/LocalUserContext')
+const localUserContext = require('../../localContext/LocalUserContext')
 const db = require('../../lib/FireBaseDB')
 
 const question = "Enter a password to verify you have reached your destination in the future."

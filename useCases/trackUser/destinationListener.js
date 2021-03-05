@@ -1,5 +1,5 @@
 const bot = require('../../lib/TelegramBot')
-const localTrackingContext = require('../../lib/LocalTrackingContext')
+const localTrackingContext = require('../../localContext/LocalTrackingContext')
 const etaListener = require('./etaListener')
 
 const question = "Please enter your destination location name."

@@ -1,5 +1,5 @@
 const bot = require('../../lib/TelegramBot')
-const localUserContext = require('../../lib/LocalUserContext')
+const localUserContext = require('../../localContext/LocalUserContext')
 const emergencyContactListener = require('./emergencyContactsListener')
 
 const question = "Upload your identificaiton card for verification."

@@ -1,5 +1,5 @@
 const bot = require('../../lib/TelegramBot')
-const localUserContext = require('../../lib/LocalUserContext')
+const localUserContext = require('../../localContext/LocalUserContext')
 const passwordListener = require('./passwordListener')
 
 const question = "Enter your emergency contacts details so that we can alert them when something happen to you."

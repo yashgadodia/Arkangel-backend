@@ -1,5 +1,5 @@
 const bot = require('../../lib/TelegramBot')
-const localUserContext = require('../../lib/LocalUserContext')
+const localUserContext = require('../../localContext/LocalUserContext')
 const addressListener = require('./addressListener')
 
 const question = "Enter your phone number."

@@ -1,5 +1,5 @@
 const bot = require('../../lib/TelegramBot')
-const localTrackingContext = require('../../lib/LocalTrackingContext')
+const localTrackingContext = require('../../localContext/LocalTrackingContext')
 
 const question = "How should we process your estimated time to reach your destination time?"
 

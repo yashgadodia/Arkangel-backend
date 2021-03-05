@@ -1,6 +1,6 @@
 const bot = require('../../lib/TelegramBot')
 const createTrackingModel = require('../../model/TrackUserInputModel')
-const localTrackingContext = require('../../lib/LocalTrackingContext')
+const localTrackingContext = require('../../localContext/LocalTrackingContext')
 const destinationLocationListener = require('./destinationListener')
 
 const question = "Please share your live location with us to estimate your ETA to your destination."
