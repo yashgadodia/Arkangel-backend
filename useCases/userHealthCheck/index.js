@@ -4,6 +4,7 @@ const localTrackingContext = require('../../localContext/LocalTrackingContext')
 module.exports = performHealthCheck
 
 const HEALTH_CHECK_INTERVAL = 300000 // Fixed to 5 minutes
+const HEALTH_CHECK_DEADLINE = 60000 // Fixed to 1 minute
 
 function performHealthCheck(userId) {
     setTimeout(function () {
@@ -27,5 +28,27 @@ function performHealthCheck(userId) {
                 ]
             }
         })
+
+        localTrackingContext.updateTracker(userId, {
+            type: 'respondedToHealthCheck',
+            payload: false
+        })
+        setHealthCheckResponseDeadline(userId)
     }, HEALTH_CHECK_INTERVAL)
+}
+
+function setHealthCheckResponseDeadline(userId) {
+    setTimeout(function () {
+        const tracker = localTrackingContext.getTracker(userId)
+        if (!tracker || !tracker.shouldPerformHealthCheck) return
+
+        const { respondedToHealthCheck } = tracker
+        if (!respondedToHealthCheck) {
+            alertPolice(userId)
+        }
+    }, HEALTH_CHECK_DEADLINE)
+}
+
+function alertPolice(userId) {
+    console.log(`${userId} will be reported to the police`)
 }
