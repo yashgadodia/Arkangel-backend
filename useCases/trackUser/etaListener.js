@@ -6,7 +6,7 @@ const question = "How should we process your estimated time to reach your destin
 const manualEtaQuestion = "What is your estimated time to reach your destination?"
 
 module.exports = {
-    question,
+    question: manualEtaQuestion,
 
     prompt: function (chatId) {
         bot.sendMessage(chatId, question, {
@@ -49,7 +49,7 @@ module.exports = {
         })
     },
 
-    manualHandler: function (nessage) {
-
+    manualHandler: function (message) {
+        console.log(message)
     }
 }
