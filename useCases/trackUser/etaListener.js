@@ -1,7 +1,8 @@
 const bot = require('../../lib/TelegramBot')
 const localTrackingContext = require('../../localContext/LocalTrackingContext')
+const gmaps = require('../../lib/GMaps')
 
-const question = "How should we process your estimated time to reach your destination time?"
+const question = "How should we process your estimated time to reach your destination time? (e.g. 15 mins)"
 
 const manualEtaQuestion = "What is your estimated time to reach your destination?"
 
@@ -35,21 +36,29 @@ module.exports = {
         })
     },
 
-    autoHandler: function (message) {
-        const chatId = message.chat.id
+    autoHandler: async function (message) {
         const userId = message.from.id
 
         const currentLocation = localTrackingContext.getTracker(userId).currentLocation
         const destinationLocation = localTrackingContext.getTracker(userId).destinationLocation
-        // TODO: Retrieve ETA by using two geolocation
+
+        const estimatedDuration = await gmaps.getDistanceByGeolocation(currentLocation, destinationLocation)
+        localTrackingContext.updateTracker(userId, {
+            type: 'etaToDestination',
+            payload: estimatedDuration
+        })
+
+        // TODO: Launch health check on user
+    },
+
+    manualHandler: function (message) {
+        const userId = message.from.id
 
         localTrackingContext.updateTracker(userId, {
             type: 'etaToDestination',
             payload: message.text
         })
-    },
 
-    manualHandler: function (message) {
-        console.log(message)
+        // TODO: Launch health check on user
     }
 }
