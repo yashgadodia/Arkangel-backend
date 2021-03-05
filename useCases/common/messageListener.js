@@ -8,6 +8,7 @@ const { question: onboardPasswordQuestion, handler: onboardPasswordHandler } = r
 
 const { question: trackCurrentLocationQuestion, handler: trackCurrentLocationHandler } = require('../trackUser/currentLocationListener')
 const { question: trackDestinationLocationQuestion, handler: trackDestinationLocationHandler } = require('../trackUser/destinationListener')
+const { question: trackManualEtaQuestion, manualHandler: trackManualEtaHandler } = require('../trackUser/etaListener')
 
 module.exports = (message) => {
     if (!message.reply_to_message) return
@@ -47,6 +48,10 @@ module.exports = (message) => {
 
         case trackDestinationLocationQuestion:
             trackDestinationLocationHandler(message)
+            break
+
+        case trackManualEtaQuestion:
+            trackManualEtaHandler(message)
             break
     }
 }
