@@ -9,10 +9,15 @@ const HEALTH_CHECK_DEADLINE = 60000 // Fixed to 1 minute
 
 // For testing
 // const HEALTH_CHECK_INTERVAL = 5000
-// const HEALTH_CHECK_DEADLINE = 2000
+// const HEALTH_CHECK_DEADLINE = 3000
 
 function performHealthCheck(userId, immediate = false) {
     const healthCheck = () => {
+        localTrackingContext.updateTracker(userId, {
+            type: 'respondedToHealthCheck',
+            payload: false
+        })
+
         const tracker = localTrackingContext.getTracker(userId)
         if (!tracker || !tracker.shouldPerformHealthCheck) return
 
@@ -34,10 +39,6 @@ function performHealthCheck(userId, immediate = false) {
             }
         })
 
-        localTrackingContext.updateTracker(userId, {
-            type: 'respondedToHealthCheck',
-            payload: false
-        })
         setHealthCheckResponseDeadline(userId)
     }
 
@@ -76,7 +77,6 @@ function setHealthCheckResponseDeadline(userId) {
 
             await firebaseDb.addHistoryAlerts(userId, tracker.currentLocation,
                 `Did not respond to ArkAngel's message for ${missedHealthChecks + 1} time(s).`)
-
             performHealthCheck(userId, true)
         }
     }, HEALTH_CHECK_DEADLINE)
