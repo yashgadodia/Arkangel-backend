@@ -25,7 +25,7 @@ module.exports = (message) => {
             break
 
         case 'healthCheck_yes':
-            healthCheckPasswordListener.prompt(chatId)
+            healthCheckPasswordListener.prompt(chatId, userId)
             break
 
         case 'healthCheck_no':
