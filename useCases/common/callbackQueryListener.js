@@ -13,6 +13,7 @@ module.exports = (message) => {
     bot.answerCallbackQuery(message.id)
 
     const chatId = message.message.chat.id
+    const userId = message.from.id
 
     switch (message.data) {
         case 'etaListener_auto':
@@ -28,7 +29,12 @@ module.exports = (message) => {
             break
 
         case 'healthCheck_no':
-            healthCheck(message.from.id)
+            localTrackingContext.updateTracker(userId, {
+                type: 'respondedToHealthCheck',
+                payload: true
+            })
+
+            healthCheck(userId)
             break
     }
 }
