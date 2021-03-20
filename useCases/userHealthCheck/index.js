@@ -1,4 +1,5 @@
 const bot = require('../../lib/TelegramBot')
+const firebaseDb = require('../../lib/FireBaseDB')
 const localTrackingContext = require('../../localContext/LocalTrackingContext')
 
 module.exports = performHealthCheck
@@ -6,8 +7,12 @@ module.exports = performHealthCheck
 const HEALTH_CHECK_INTERVAL = 300000 // Fixed to 5 minutes
 const HEALTH_CHECK_DEADLINE = 60000 // Fixed to 1 minute
 
-function performHealthCheck(userId) {
-    setTimeout(function () {
+// For testing
+// const HEALTH_CHECK_INTERVAL = 5000
+// const HEALTH_CHECK_DEADLINE = 2000
+
+function performHealthCheck(userId, immediate = false) {
+    const healthCheck = () => {
         const tracker = localTrackingContext.getTracker(userId)
         if (!tracker || !tracker.shouldPerformHealthCheck) return
 
@@ -34,7 +39,15 @@ function performHealthCheck(userId) {
             payload: false
         })
         setHealthCheckResponseDeadline(userId)
-    }, HEALTH_CHECK_INTERVAL)
+    }
+
+    if (immediate) {
+        healthCheck()
+    } else {
+        setTimeout(function () {
+            healthCheck()
+        }, HEALTH_CHECK_INTERVAL)
+    }
 }
 
 function setHealthCheckResponseDeadline(userId) {
@@ -42,15 +55,28 @@ function setHealthCheckResponseDeadline(userId) {
         const tracker = localTrackingContext.getTracker(userId)
         if (!tracker || !tracker.shouldPerformHealthCheck) return
 
-        const { respondedToHealthCheck } = tracker
-        if (!respondedToHealthCheck) {
-            alertPolice(userId)
-        }
+        const { respondedToHealthCheck, missedHealthChecks } = tracker
+        if (!respondedToHealthCheck && missedHealthChecks > 2) {
+            localTrackingContext.updateTracker(userId, {
+                type: 'missedHealthChecks',
+                payload: 0
+            })
+            alertPolice(tracker)
+        } else if (!respondedToHealthCheck) {
+            localTrackingContext.updateTracker(userId, {
+                type: 'missedHealthChecks',
+                payload: missedHealthChecks + 1
+            })
 
-        await firebaseDb.addHistoryAlerts(userId, tracker.currentLocation, "Did not response to ArkAngel's message in time.")
+            await firebaseDb.addHistoryAlerts(userId, tracker.currentLocation,
+                `Did not respond to ArkAngel's message for ${missedHealthChecks + 1} time(s).`)
+
+            performHealthCheck(userId, true)
+        }
     }, HEALTH_CHECK_DEADLINE)
 }
 
-function alertPolice(userId) {
-    // TODO: Alert the police
+async function alertPolice(tracker) {
+    // TODO: JsonRPC to frontend to alert police
+    console.log('Alerting the police')
 }
