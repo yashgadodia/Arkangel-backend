@@ -11,5 +11,6 @@ module.exports = () => ({
     },
     etaToDestination: null,
     shouldPerformHealthCheck: false,
-    respondedToHealthCheck: true
+    respondedToHealthCheck: true,
+    missedHealthChecks: 0
 })
