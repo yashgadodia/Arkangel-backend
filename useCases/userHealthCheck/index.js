@@ -61,6 +61,12 @@ function setHealthCheckResponseDeadline(userId) {
                 type: 'missedHealthChecks',
                 payload: 0
             })
+
+            localTrackingContext.updateTracker(userId, {
+                type: 'shouldPerformHealthCheck',
+                payload: false
+            })
+
             alertPolice(tracker)
         } else if (!respondedToHealthCheck) {
             localTrackingContext.updateTracker(userId, {
