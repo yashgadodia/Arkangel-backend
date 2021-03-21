@@ -26,7 +26,7 @@ module.exports = {
         delete passwordTimeoutHandlers[userId]
 
         await bot.deleteMessage(chatId, message.message_id)
-        const isPasswordValid = await firebaseDb.isPasswordValid(chatId)
+        const isPasswordValid = await firebaseDb.isPasswordValid(chatId, message.text)
 
         if (!isPasswordValid) {
             passwordAttempts[userId] ? passwordAttempts[userId]++ : passwordAttempts[userId] = 1
